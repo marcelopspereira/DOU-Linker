@@ -99,3 +99,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+/.vs
+/src/Linker/.vs/Linker/v15
+/src/.vs/Linker/v15
