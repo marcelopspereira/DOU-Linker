@@ -5,40 +5,25 @@ using System.IO;
 
 namespace Dou.Linker.Net.Cli
 {
-    class JsonGraphWriter
+   public class JsonGraphWriter
     {
-        public void XMLtoJsonWriter()
+        public void XMLtoJsonWriter(string line)
         {
             // Get the directories currently on the C drive.
-            DirectoryInfo[] cDirs = new DirectoryInfo(@"c:\").GetDirectories();
+            //  DirectoryInfo[] cDirs = new DirectoryInfo(@"c:\Projects\DOU-Linker\src\JsonOutput").GetDirectories();
 
+           
+
+            int i = 0;
             // Write each directory name to a file.
-            using (StreamWriter sw = new StreamWriter("CDriveDirs.txt"))
-            {
-                foreach (DirectoryInfo dir in cDirs)
-                {
-                    sw.WriteLine(dir.Name);
-
-                }
+            using (StreamWriter sw = new StreamWriter(@"C:\Projects\DOU-Linker\src\JsonOutput\Sample" + i + ".json"))
+            {           
+                sw.WriteLine(line);
+                
+                
             }
-
-            // Read and show each line from the file.
-            string line = "";
-            using (StreamReader sr = new StreamReader("CDriveDirs.txt"))
-            {
-                while ((line = sr.ReadLine()) != null)
-                {
-                    Console.WriteLine(line);
-                }
-            }
-
-
-
-
 
         }
-
-
 
     }
 }

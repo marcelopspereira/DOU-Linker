@@ -34,7 +34,7 @@ namespace Dou.Linker.Net.Cli
 
 
 
-
+            Console.WriteLine("Linker executado com sucesso...");
             Console.ReadLine();
         }
     }

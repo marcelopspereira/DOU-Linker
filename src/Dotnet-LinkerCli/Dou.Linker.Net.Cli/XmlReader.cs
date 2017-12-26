@@ -7,6 +7,7 @@ namespace Dou.Linker.Net.Cli
 {
     public class XmlReader
     {
+        string article = "";
         public void ReadXmlFile(string xmlFile)
         {
             try
@@ -16,11 +17,24 @@ namespace Dou.Linker.Net.Cli
                 using (StreamReader sr = new StreamReader(xmlFile))
                 {
                     string line;
+
+                    var writer = new JsonGraphWriter();
+
                     // O retorno da linha será salva na variavel line, usar ela para identificar o regex e gerar o log json
                     while ((line = sr.ReadLine()) != null)
                     {
-                        Console.WriteLine(line);
+
+
+                        //Execucao do Linker para analisar o texto e buscar leis
+
+                        article = article + " " + line;
+
+
                     }
+
+
+                    //Escrevendo as variaveis no documento
+                    writer.XMLtoJsonWriter(article);
                 }
             }
             catch (Exception e)
