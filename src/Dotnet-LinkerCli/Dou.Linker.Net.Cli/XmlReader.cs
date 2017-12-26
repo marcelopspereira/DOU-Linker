@@ -16,8 +16,7 @@ namespace Dou.Linker.Net.Cli
                 using (StreamReader sr = new StreamReader(xmlFile))
                 {
                     string line;
-                    // Read and display lines from the file until the end of 
-                    // the file is reached.
+                    // O retorno da linha será salva na variavel line, usar ela para identificar o regex e gerar o log json
                     while ((line = sr.ReadLine()) != null)
                     {
                         Console.WriteLine(line);
@@ -26,7 +25,7 @@ namespace Dou.Linker.Net.Cli
             }
             catch (Exception e)
             {
-                // Let the user know what went wrong.
+                // formato do arquivo carregado invalido caso entre aqui.
                 Console.WriteLine("O arquivo nao pode ser lido");
                 Console.WriteLine(e.Message);
             }
