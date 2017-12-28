@@ -12,6 +12,8 @@ namespace Dou.Linker.Net.Cli
 
         public static string TitleLei { get; set; }
 
+        public static string BodyLei { get; set; }
+
         public void FindArticleTitle(string article)
         {
             var pattern = @"<title>(.*)</title>";
@@ -75,6 +77,26 @@ namespace Dou.Linker.Net.Cli
             }
 
 
+
+
+        }
+
+        public void FindBodyLei(string ArticleBody)
+        {
+            var pattern = @"(Lei nº|Lei no) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)";
+            Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+            MatchCollection matches = rgx.Matches(ArticleBody);
+
+            BodyLei = "";
+
+                foreach (Match match in matches)
+            {
+                BodyLei += "->" + match.Value + "\n";
+
+
+            }
+                
 
 
         }

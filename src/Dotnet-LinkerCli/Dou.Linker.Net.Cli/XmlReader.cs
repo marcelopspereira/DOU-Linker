@@ -31,6 +31,7 @@ namespace Dou.Linker.Net.Cli
                         //Busca de Leis, Portarias e etc...
 
                         getTitle.FindTitleLei(Linker.ArticleTitle);
+                        getTitle.FindBodyLei(Linker.ArticleBody);
                         
 
 
@@ -39,7 +40,7 @@ namespace Dou.Linker.Net.Cli
                     //Escrevendo as variaveis no documento
 
                     var writer = new JsonGraphWriter();
-                    writer.XMLtoJsonWriter(Linker.TitleLei + "\n" + Linker.ArticleBody);
+                    writer.XMLtoJsonWriter(Linker.TitleLei + "\n" + Linker.BodyLei);
 
                 }
             }
