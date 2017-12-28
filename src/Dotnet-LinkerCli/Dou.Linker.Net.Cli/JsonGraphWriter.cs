@@ -14,9 +14,9 @@ namespace Dou.Linker.Net.Cli
 
            
 
-            int i = 0;
+        
             // Write each directory name to a file.
-            using (StreamWriter sw = new StreamWriter(@"C:\Projects\DOU-Linker\src\JsonOutput\Sample" + i + ".json"))
+            using (StreamWriter sw = new StreamWriter(@"C:\Projects\DOU-Linker\src\JsonOutput\output.txt"))
             {           
                 sw.WriteLine(line);
                 

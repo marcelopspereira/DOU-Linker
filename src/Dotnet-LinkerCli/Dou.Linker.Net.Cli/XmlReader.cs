@@ -11,37 +11,36 @@ namespace Dou.Linker.Net.Cli
         
         public void ReadXmlFile(string xmlFile)
         {
+            string lei = "";
             try
             {
-                // Fará a leitura do XML dos artigos e deverá retornar a lei correspondente do XML através da lógica de Parse.
+                // Fará a leitura do XML dos artigos e deverá retornar a lei correspondente do XML através da lógica de Regex.
 
                 using (StreamReader sr = new StreamReader(xmlFile))
                 {
-                    string line;
-                    string article = "";
+                    string article;
+                   
 
-                    //variaveis do regex
-                    string pattern = @"(Lei|LEI|Lei complementar|LEI COMPLEMENTAR|Lei Complementar|Decreto|DECRETO|Portaria|PORTARIA|Projeto de Lei|Acórdão|ACÓRDÃO|Emenda|EMENDA[0-9]+(\.[0-9]+)?(\-[0-9]+)?)";
-                    Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
-
-                    var writer = new JsonGraphWriter();
-
-                    // O retorno da linha será salva na variavel line, usar ela para identificar o regex e gerar o log json
-                    while ((line = sr.ReadLine()) != null)
+                    article = sr.ReadToEnd();
                     {
-                        MatchCollection matches = rgx.Matches(line);
+                        var getTitle = new Linker();
 
-                        //Execucao do Linker para analisar o texto e buscar leis
+                        getTitle.FindArticleTitle(article);
+                        getTitle.GetBodyArticle(article);
 
-                      //  foreach (Match match in matches)
-                            article = article + ";" + line;
+                        //Busca de Leis, Portarias e etc...
+
+                        getTitle.FindTitleLei(Linker.ArticleTitle);
+                        
 
 
                     }
 
-
                     //Escrevendo as variaveis no documento
-                    writer.XMLtoJsonWriter(article);
+
+                    var writer = new JsonGraphWriter();
+                    writer.XMLtoJsonWriter(Linker.TitleLei + "\n" + Linker.ArticleBody);
+
                 }
             }
             catch (Exception e)
@@ -54,9 +53,17 @@ namespace Dou.Linker.Net.Cli
 
         }
 
+        private static string FindLei(string article, string line, Regex rgx)
+        {
+            MatchCollection matches = rgx.Matches(line);
 
+            //Execucao do Linker para analisar o texto e buscar leis
 
+            foreach (Match match in matches)
 
+                article += "->" + match + "\n";
+            return article;
+        }
     }
 
 }

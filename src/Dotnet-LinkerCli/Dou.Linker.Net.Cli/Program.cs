@@ -6,7 +6,7 @@ namespace Dou.Linker.Net.Cli
   
     class Program
     {
-        private static int i = 1;
+        private static int i = 9;
 
        
         private static string file = @"C:\Projects\DOU-Linker\src\XmlSamples\Sample"+ i + ".xml";
@@ -15,9 +15,8 @@ namespace Dou.Linker.Net.Cli
         {
             var reader = new XmlReader();
 
-
             //Leitura do XML e armazenamento da linha na variavel line
-            for (i = 1; i < 14; i++)
+            for (i = 9; i < 10; i++)
             {
                 file = @"C:\Projects\DOU-Linker\src\XmlSamples\Sample" + i + ".xml";
                 reader.ReadXmlFile(file);
@@ -35,6 +34,7 @@ namespace Dou.Linker.Net.Cli
 
 
             Console.WriteLine("Linker executado com sucesso...");
+            Console.WriteLine(Linker.TitleLei);
             Console.ReadLine();
         }
     }
