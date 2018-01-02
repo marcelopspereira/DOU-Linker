@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace Dou.Linker.Net.Cli
 {
@@ -13,6 +14,9 @@ namespace Dou.Linker.Net.Cli
         public static string TitleLei { get; set; }
 
         public static string BodyLei { get; set; }
+
+        public static List<string> LeiList { get; set; } = new List<string>(new string[50]);
+
 
         public void FindArticleTitle(string article)
         {
@@ -88,19 +92,36 @@ namespace Dou.Linker.Net.Cli
 
             MatchCollection matches = rgx.Matches(ArticleBody);
 
+          //  bool areEqual = LeiArray.SequenceEqual(LeiArray);
+
             BodyLei = "";
+            int i = 0;
 
                 foreach (Match match in matches)
             {
-                BodyLei += "->" + match.Value + "\n";
+            
+                LeiList[i] = match.Value;
 
 
+                i++;
             }
-                
 
+            LeiList = LeiList.Distinct().ToList();
+            LeiList.RemoveAll(item => item == null);
 
         }
 
+            
+
+
+          
+
+          
+
+           
+              //  for (int j=0;)
+
+              //  BodyLei += "->" + match.Value + "\n";
 
 
 

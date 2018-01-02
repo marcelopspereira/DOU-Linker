@@ -36,6 +36,9 @@ namespace Dou.Linker.Net.Cli
             Console.WriteLine("Linker executado com sucesso...");
             Console.WriteLine(Linker.TitleLei);
             Console.WriteLine(Linker.BodyLei);
+
+            for (int i = 0; i<Linker.LeiList.Count;i++)
+            Console.WriteLine("-> " + Linker.LeiList[i]);
             Console.ReadLine();
         }
     }
