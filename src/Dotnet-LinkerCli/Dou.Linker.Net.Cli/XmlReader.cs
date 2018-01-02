@@ -32,7 +32,11 @@ namespace Dou.Linker.Net.Cli
 
                         linkerProcessor.FindTitleLei(Linker.ArticleTitle);
                         linkerProcessor.FindBodyLei(Linker.ArticleBody);
-                        
+
+
+                        //Busca de verbos de acao em leis e portarias (revoga, altera e etc..)
+                       // linkerProcessor.FindBodyLeiTraceability(Linker.ArticleBody);
+
 
 
                     }
@@ -40,7 +44,7 @@ namespace Dou.Linker.Net.Cli
                     //Escrevendo as variaveis no documento
 
                     var writer = new JsonGraphWriter();
-                    writer.XMLtoJsonWriter(Linker.TitleLei + "\n" + Linker.BodyLei);
+                    writer.XMLtoJsonWriter(Linker.TitleLei + "\n" + Linker.IDLeiList);
 
                 }
             }
