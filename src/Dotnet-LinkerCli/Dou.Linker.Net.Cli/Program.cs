@@ -37,8 +37,8 @@ namespace Dou.Linker.Net.Cli
             Console.WriteLine(Linker.TitleLei);
             Console.WriteLine(Linker.BodyLei);
 
-            for (int i = 0; i<Linker.LeiList.Count;i++)
-            Console.WriteLine("-> " + Linker.LeiList[i]);
+            for (int i = 0; i<Linker.IDLeiList.Count;i++)
+            Console.WriteLine("-> " + Linker.IDLeiList[i]);
             Console.ReadLine();
         }
     }

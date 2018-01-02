@@ -15,7 +15,7 @@ namespace Dou.Linker.Net.Cli
 
         public static string BodyLei { get; set; }
 
-        public static List<string> LeiList { get; set; } = new List<string>(new string[50]);
+        public static List<string> IDLeiList { get; set; } = new List<string>(new string[50]);
 
 
         public void FindArticleTitle(string article)
@@ -92,36 +92,55 @@ namespace Dou.Linker.Net.Cli
 
             MatchCollection matches = rgx.Matches(ArticleBody);
 
-          //  bool areEqual = LeiArray.SequenceEqual(LeiArray);
-
             BodyLei = "";
             int i = 0;
+
+
+            //Preenche a lista de Leis capturadas no body dentro da variavel IDLeiList
 
                 foreach (Match match in matches)
             {
             
-                LeiList[i] = match.Value;
+                IDLeiList[i] = match.Value;
 
 
                 i++;
             }
 
-            LeiList = LeiList.Distinct().ToList();
-            LeiList.RemoveAll(item => item == null);
+            //Deixa elementos unicos dentro do array e limpa nulos
 
+            IDLeiList = IDLeiList.Distinct().ToList();
+            IDLeiList.RemoveAll(item => item == null);
         }
 
-            
+        public void FindBodyLeiTraceability(string ArticleBody)
+        {
+            var pattern = @"(Lei nº|Lei no) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)";
+            Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+            MatchCollection matches = rgx.Matches(ArticleBody);
+
+            BodyLei = "";
+            int i = 0;
 
 
-          
+            //Preenche a lista de Leis capturadas no body dentro da variavel IDLeiList
 
-          
+            foreach (Match match in matches)
+            {
 
-           
-              //  for (int j=0;)
+                IDLeiList[i] = match.Value;
 
-              //  BodyLei += "->" + match.Value + "\n";
+
+                i++;
+            }
+
+            //Deixa elementos unicos dentro do array e limpa nulos
+
+            IDLeiList = IDLeiList.Distinct().ToList();
+            IDLeiList.RemoveAll(item => item == null);
+        }
+
 
 
 

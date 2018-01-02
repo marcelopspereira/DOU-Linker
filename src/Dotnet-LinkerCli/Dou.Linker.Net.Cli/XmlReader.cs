@@ -23,15 +23,15 @@ namespace Dou.Linker.Net.Cli
 
                     article = sr.ReadToEnd();
                     {
-                        var getTitle = new Linker();
+                        var linkerProcessor = new Linker();
 
-                        getTitle.FindArticleTitle(article);
-                        getTitle.GetBodyArticle(article);
+                        linkerProcessor.FindArticleTitle(article);
+                        linkerProcessor.GetBodyArticle(article);
 
                         //Busca de Leis, Portarias e etc...
 
-                        getTitle.FindTitleLei(Linker.ArticleTitle);
-                        getTitle.FindBodyLei(Linker.ArticleBody);
+                        linkerProcessor.FindTitleLei(Linker.ArticleTitle);
+                        linkerProcessor.FindBodyLei(Linker.ArticleBody);
                         
 
 
