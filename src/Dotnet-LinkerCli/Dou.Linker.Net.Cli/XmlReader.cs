@@ -18,23 +18,27 @@ namespace Dou.Linker.Net.Cli
                 using (StreamReader sr = new StreamReader(xmlFile))
                 {
                     string article;
-                    var LinkerProcessor = new Linker();
+
+                    var XmlArticle = new XmlArticleLayout();
+
 
                     article = sr.ReadToEnd();
                     {                      
-                        LinkerProcessor.FindTitleArticle(article);
-                        LinkerProcessor.FindCaputArticle(article);
-                        LinkerProcessor.FindBodyArticle(article);
+                        XmlArticle.FindTitleArticle(article);
+                        XmlArticle.FindCaputArticle(article);
+                        XmlArticle.FindBodyArticle(article);
                     }
+
+                    var LinkerProcessor = new Linker();
 
                     //Busca de Leis, Portarias e etc...
 
-                    LinkerProcessor.FindTitleLei(Linker.ArticleTitle);
-                    LinkerProcessor.FindBodyLei(Linker.ArticleBody);
+                    LinkerProcessor.FindTitleLei(XmlArticleLayout.ArticleTitle);
+                    LinkerProcessor.FindBodyLei(XmlArticleLayout.ArticleBody);
 
 
                     //Busca de verbos de acao em leis e portarias (revoga, altera e etc..)
-                    LinkerProcessor.FindLeiTraceability(Linker.ArticleCaput);
+                    LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleCaput);
               
 
                     //Escrevendo as variaveis no documento

@@ -8,9 +8,6 @@ namespace Dou.Linker.Net.Cli
 {
     public class Linker
     {
-        public static string ArticleTitle { get; set; }
-        public static string ArticleBody { get; set; }
-        public static string ArticleCaput { get; set; }
 
         public static string TitleLei { get; set; }
 
@@ -20,28 +17,6 @@ namespace Dou.Linker.Net.Cli
         public static List<string> ActionLei { get; set; } = new List<string>();
 
 
-        public void FindTitleArticle(string article)
-        {
-            var pattern = @"<title>(.*)</title>";
-            Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-            MatchCollection matches = rgx.Matches(article);
-
-
-            if (matches.Count > 0)
-            {         
-            Match match = matches[0];
-
-
-           //Tratamento do titulo
-
-           ArticleTitle = match.Value;
-           ArticleTitle = ArticleTitle.Replace("<title>","");
-           ArticleTitle = ArticleTitle.Replace("</title>", "");
-
-            }       
-
-        }
 
         public void FindTitleLei(string ArticleTitle)
         {
@@ -59,59 +34,6 @@ namespace Dou.Linker.Net.Cli
 
         }
 
-
-
-        public void FindBodyArticle(string article)
-        {
-            var pattern = @"<body>(.*)</body>";
-            Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-            MatchCollection matches = rgx.Matches(article);
-
-
-            if (matches.Count > 0)
-            {
-                Match match = matches[0];
-
-
-                //Tratamento do titulo
-
-                ArticleBody = match.Value;
-                ArticleBody = ArticleBody.Replace("<body>", "");
-                ArticleBody = ArticleBody.Replace("</body>", "");
-               
-            }
-
-
-
-
-        }
-
-        public void FindCaputArticle(string article)
-        {
-            var pattern = @"<caput>(.*)</caput>";
-            Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-            MatchCollection matches = rgx.Matches(article);
-
-
-            if (matches.Count > 0)
-            {
-                Match match = matches[0];
-
-
-                //Tratamento do titulo
-
-                ArticleCaput = match.Value;
-                ArticleCaput = ArticleCaput.Replace("<caput>", "");
-                ArticleCaput = ArticleCaput.Replace("</caput>", "");
-
-            }
-
-
-
-
-        }
 
         public void FindBodyLei(string ArticleBody)
         {
