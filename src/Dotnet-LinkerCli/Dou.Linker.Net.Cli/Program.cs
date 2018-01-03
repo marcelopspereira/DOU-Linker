@@ -6,7 +6,7 @@ namespace Dou.Linker.Net.Cli
   
     class Program
     {
-        private static int i = 12;
+        private static int i = 3;
 
        
         private static string file = @"C:\Projects\DOU-Linker\src\XmlSamples\Sample"+ i + ".xml";
@@ -36,13 +36,6 @@ namespace Dou.Linker.Net.Cli
             Console.WriteLine("Linker executado com sucesso...");
             Console.WriteLine(Linker.TitleLei);
 
-
-            //Impressao dos verbos de alteracao do CAPUT
-
-            for (int i = 0; i < Linker.ActionLei.Count; i++)
-                Console.WriteLine("-Altera-> " + Linker.ActionLei[i]);
-
-
             Console.WriteLine("\n");
 
 
@@ -50,7 +43,7 @@ namespace Dou.Linker.Net.Cli
 
 
             for (int i = 0; i<Linker.IDLei.Count;i++)
-            Console.WriteLine("-Undefined-> " + Linker.IDLei[i]);
+            Console.WriteLine(Linker.IDLei[i]);
             Console.ReadLine();
         }
     }

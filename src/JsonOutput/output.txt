@@ -1,2 +1,0 @@
-LEI Nº 13.474, DE 23 DE AGOSTO DE 2017.
-System.Collections.Generic.List`1[System.String]-System.Collections.Generic.List`1[System.String]

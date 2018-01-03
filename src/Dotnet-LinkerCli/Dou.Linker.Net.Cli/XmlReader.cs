@@ -24,22 +24,24 @@ namespace Dou.Linker.Net.Cli
 
                     article = sr.ReadToEnd();
                     {                      
-                        XmlArticle.FindTitleArticle(article);
-                        XmlArticle.FindCaputArticle(article);
+                        XmlArticle.FindTitleArticle(article);                   
                         XmlArticle.FindBodyArticle(article);
+                        XmlArticle.FindCaputArticle(article);
                     }
 
                     var LinkerProcessor = new Linker();
 
                     //Busca de Leis, Portarias e etc...
+                   
 
                     LinkerProcessor.FindTitleLei(XmlArticleLayout.ArticleTitle);
                     LinkerProcessor.FindBodyLei(XmlArticleLayout.ArticleBody);
+                    LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleCaput);
 
 
                     //Busca de verbos de acao em leis e portarias (revoga, altera e etc..)
-                    LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleCaput);
-              
+                    // LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleCaput);
+
 
                     //Escrevendo as variaveis no documento
 

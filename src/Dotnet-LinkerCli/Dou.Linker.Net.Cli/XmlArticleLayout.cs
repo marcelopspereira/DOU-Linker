@@ -54,11 +54,9 @@ namespace Dou.Linker.Net.Cli
                 ArticleBody = match.Value;
                 ArticleBody = ArticleBody.Replace("<body>", "");
                 ArticleBody = ArticleBody.Replace("</body>", "");
+               // ArticleBody = ArticleBody.Replace("\n", "");
 
             }
-
-
-
 
         }
 

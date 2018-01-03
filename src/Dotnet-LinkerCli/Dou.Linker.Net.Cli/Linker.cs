@@ -20,7 +20,7 @@ namespace Dou.Linker.Net.Cli
 
         public void FindTitleLei(string ArticleTitle)
         {
-            var pattern = @"(Lei nº|Lei no) (.*).";
+            var pattern = @"(Lei nº|Lei no) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)";
             Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             MatchCollection matches = rgx.Matches(ArticleTitle);
@@ -37,7 +37,7 @@ namespace Dou.Linker.Net.Cli
 
         public void FindBodyLei(string ArticleBody)
         {
-            var pattern = @"(Lei nº|Lei no) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)(.*)."; //REMOVER (.*). CASO NÃO FUNCIONE NO CENÁRIO DE BATCH
+            var pattern = @"(Lei nº|Lei no) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)"; //REMOVER (.*). CASO NÃO FUNCIONE NO CENÁRIO DE BATCH
             Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             MatchCollection matches = rgx.Matches(ArticleBody);
@@ -47,8 +47,20 @@ namespace Dou.Linker.Net.Cli
 
                 foreach (Match match in matches)
             {
-            
-                IDLei.Add(match.Value);
+
+                var cleanMatchValue = match.Value;
+                var leiAltera = cleanMatchValue;
+
+                var regex = new Regex(@"([0-9]+(\.[0-9]+)?(\-[0-9]+)?)");
+                var leiMatch = regex.Match(cleanMatchValue);
+
+                if (leiMatch.Success)
+                {
+                    leiAltera = "Lei " + leiMatch;
+                }
+
+
+                IDLei.Add(leiAltera);
          
             }
 
@@ -63,7 +75,7 @@ namespace Dou.Linker.Net.Cli
             //Usar o regex para capturar o Verbo Altera e o ponto final, após a captura deverei verificar se existe alguma lei dentro dela (Olhar a Lista de Strings já capturada)
 
 
-              var pattern = @"(Altera)(.*).";
+            var pattern = @"Altera(.*) (Lei nº|Lei no|Leis nos) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)";
             Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             MatchCollection matches = rgx.Matches(ArticleCaput);
@@ -74,14 +86,54 @@ namespace Dou.Linker.Net.Cli
 
             foreach (Match match in matches)
             {
+                var cleanMatchValue = match.Value;
+                var leiAltera = cleanMatchValue;
 
-               ActionLei.Add(match.Value);
-        
+                var regex = new Regex(@"([0-9]+(\.[0-9]+)?(\-[0-9]+)?)");
+                var leiMatch = regex.Match(cleanMatchValue);
+
+                if (leiMatch.Success)
+                {
+                    leiAltera = "Lei " + leiMatch ;
+                }
+
+                IDLei.Add(leiAltera);
+
+
+
+                IDLei.Sort();
+                Int32 index = 0;
+                while (index < IDLei.Count - 1)
+                {
+                    if (IDLei[index] == IDLei[index + 1])
+                    {
+                        IDLei.RemoveAt(index + 1);
+                        IDLei.RemoveAt(index);
+                    }
+                       
+                    else
+                        index++;
+                }
+
+           
+
+                //Adiciona Altera no final do retorno
+                var regexAltera = new Regex("Altera");
+                var alteraMatch = regex.Match(cleanMatchValue);
+
+                if (alteraMatch.Success)
+                {
+                    leiAltera = leiAltera + ";" + "Altera";
+                }
+
+                IDLei.Add(leiAltera);
+
+                IDLei = IDLei.Distinct().ToList();
+                IDLei.Sort();
+
+
             }
 
-            //Deixa elementos unicos dentro do array e limpa nulos
-
-            ActionLei = ActionLei.Distinct().ToList();
 
         }
 
