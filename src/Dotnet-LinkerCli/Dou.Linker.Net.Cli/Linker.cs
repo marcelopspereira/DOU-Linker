@@ -117,7 +117,7 @@ namespace Dou.Linker.Net.Cli
 
            
 
-                //Adiciona Altera no final do retorno
+                //Adiciona Altera no final do retorno - AQUI DEVERA TER ALTERA OU REVOGA, DEVERA SER NO MESMO METODO PARA EVITAR EXECUCAO DEMASIADA E CLASSIFICACAO, UMA VEZ QUE EU JA CAPTUREI OS ITENS DO BODY, TALVEZ DEVEREI EXECUTAR O CLEAN NO CAPUT E BODY.
                 var regexAltera = new Regex("Altera");
                 var alteraMatch = regex.Match(cleanMatchValue);
 
