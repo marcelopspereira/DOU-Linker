@@ -6,7 +6,7 @@ namespace Dou.Linker.Net.Cli
   
     class Program
     {
-        private static int i = 9;
+        private static int i = 12;
 
        
         private static string file = @"C:\Projects\DOU-Linker\src\XmlSamples\Sample"+ i + ".xml";
@@ -16,12 +16,12 @@ namespace Dou.Linker.Net.Cli
             var reader = new XmlReader();
 
             //Leitura do XML e armazenamento da linha na variavel line
-            for (i = 9; i < 10; i++)
-            {
-                file = @"C:\Projects\DOU-Linker\src\XmlSamples\Sample" + i + ".xml";
+           // for (i = 9; i < 13; i++)
+         //   {
+             //   file = @"C:\Projects\DOU-Linker\src\XmlSamples\Sample" + i + ".xml";
                 reader.ReadXmlFile(file);
                 
-            }
+          //  }
 
             //Analise da variavel line para captura dos termos (lei, portaria, projeto de lei e etc...)
 
@@ -35,10 +35,22 @@ namespace Dou.Linker.Net.Cli
 
             Console.WriteLine("Linker executado com sucesso...");
             Console.WriteLine(Linker.TitleLei);
-            Console.WriteLine(Linker.BodyLei);
 
-            for (int i = 0; i<Linker.IDLeiList.Count;i++)
-            Console.WriteLine("-> " + Linker.IDLeiList[i]);
+
+            //Impressao dos verbos de alteracao do CAPUT
+
+            for (int i = 0; i < Linker.ActionLei.Count; i++)
+                Console.WriteLine("-Altera-> " + Linker.ActionLei[i]);
+
+
+            Console.WriteLine("\n");
+
+
+            //Impressao das Leis sem referencias
+
+
+            for (int i = 0; i<Linker.IDLei.Count;i++)
+            Console.WriteLine("-Undefined-> " + Linker.IDLei[i]);
             Console.ReadLine();
         }
     }

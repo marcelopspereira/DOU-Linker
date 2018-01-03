@@ -10,15 +10,17 @@ namespace Dou.Linker.Net.Cli
     {
         public static string ArticleTitle { get; set; }
         public static string ArticleBody { get; set; }
+        public static string ArticleCaput { get; set; }
 
         public static string TitleLei { get; set; }
 
         public static string BodyLei { get; set; }
 
-        public static List<string> IDLeiList { get; set; } = new List<string>(new string[50]);
+        public static List<string> IDLei { get; set; } = new List<string>();
+        public static List<string> ActionLei { get; set; } = new List<string>();
 
 
-        public void FindArticleTitle(string article)
+        public void FindTitleArticle(string article)
         {
             var pattern = @"<title>(.*)</title>";
             Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -59,7 +61,7 @@ namespace Dou.Linker.Net.Cli
 
 
 
-        public void GetBodyArticle(string article)
+        public void FindBodyArticle(string article)
         {
             var pattern = @"<body>(.*)</body>";
             Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
@@ -85,6 +87,32 @@ namespace Dou.Linker.Net.Cli
 
         }
 
+        public void FindCaputArticle(string article)
+        {
+            var pattern = @"<caput>(.*)</caput>";
+            Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+            MatchCollection matches = rgx.Matches(article);
+
+
+            if (matches.Count > 0)
+            {
+                Match match = matches[0];
+
+
+                //Tratamento do titulo
+
+                ArticleCaput = match.Value;
+                ArticleCaput = ArticleCaput.Replace("<caput>", "");
+                ArticleCaput = ArticleCaput.Replace("</caput>", "");
+
+            }
+
+
+
+
+        }
+
         public void FindBodyLei(string ArticleBody)
         {
             var pattern = @"(Lei nº|Lei no) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)(.*)."; //REMOVER (.*). CASO NÃO FUNCIONE NO CENÁRIO DE BATCH
@@ -92,51 +120,47 @@ namespace Dou.Linker.Net.Cli
 
             MatchCollection matches = rgx.Matches(ArticleBody);
 
-            int i = 0;
-
 
             //Preenche a lista de Leis capturadas no body dentro da variavel IDLeiList
 
                 foreach (Match match in matches)
             {
             
-                IDLeiList[i] = match.Value;
+                IDLei.Add(match.Value);
+         
+            }
+
+         
+            IDLei = IDLei.Distinct().ToList();
+            
+        }
+
+        public void FindLeiTraceability(string ArticleCaput)
+        {
+
+            //Usar o regex para capturar o Verbo Altera e o ponto final, após a captura deverei verificar se existe alguma lei dentro dela (Olhar a Lista de Strings já capturada)
 
 
-                i++;
+              var pattern = @"(Altera)(.*).";
+            Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+            MatchCollection matches = rgx.Matches(ArticleCaput);
+
+            
+
+            ////Preenche a lista de Leis capturadas no body dentro da variavel IDLeiList
+
+            foreach (Match match in matches)
+            {
+
+               ActionLei.Add(match.Value);
+        
             }
 
             //Deixa elementos unicos dentro do array e limpa nulos
 
-            IDLeiList = IDLeiList.Distinct().ToList();
-            IDLeiList.RemoveAll(item => item == null);
-        }
+            ActionLei = ActionLei.Distinct().ToList();
 
-        public void FindBodyLeiTraceability(string ArticleBody)
-        {
-            //var pattern = @"(Lei nº|Lei no)(.*)\n";
-            //Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-            //MatchCollection matches = rgx.Matches(ArticleBody);
-
-            //int i = 0;
-
-
-            ////Preenche a lista de Leis capturadas no body dentro da variavel IDLeiList
-
-            //foreach (Match match in matches)
-            //{
-
-            //    IDLeiList[i] = match.Value;
-
-
-            //    i++;
-            //}
-
-            ////Deixa elementos unicos dentro do array e limpa nulos
-
-            //IDLeiList = IDLeiList.Distinct().ToList();
-            //IDLeiList.RemoveAll(item => item == null);
         }
 
 
