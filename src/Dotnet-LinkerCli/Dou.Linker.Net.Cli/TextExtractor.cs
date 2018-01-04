@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Dou.Linker.Net.Cli
 {
-    public class Linker
+    public class TextExtractor
     {
 
         public static string TitleLei { get; set; }

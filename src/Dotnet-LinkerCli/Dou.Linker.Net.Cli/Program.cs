@@ -34,7 +34,7 @@ namespace Dou.Linker.Net.Cli
 
 
             Console.WriteLine("Linker executado com sucesso...");
-            Console.WriteLine(Linker.TitleLei);
+            Console.WriteLine(TextExtractor.TitleLei);
 
             Console.WriteLine("\n");
 
@@ -42,8 +42,8 @@ namespace Dou.Linker.Net.Cli
             //Impressao das Leis sem referencias
 
 
-            for (int i = 0; i<Linker.IDLei.Count;i++)
-            Console.WriteLine(Linker.IDLei[i]);
+            for (int i = 0; i<TextExtractor.IDLei.Count;i++)
+            Console.WriteLine(TextExtractor.IDLei[i]);
             Console.ReadLine();
         }
     }

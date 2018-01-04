@@ -29,7 +29,7 @@ namespace Dou.Linker.Net.Cli
                         XmlArticle.FindCaputArticle(article);
                     }
 
-                    var LinkerProcessor = new Linker();
+                    var LinkerProcessor = new TextExtractor();
 
                     //Busca de Leis, Portarias e etc...
                    
@@ -46,7 +46,7 @@ namespace Dou.Linker.Net.Cli
                     //Escrevendo as variaveis no documento
 
                     var writer = new JsonGraphWriter();
-                    writer.XMLtoJsonWriter(Linker.TitleLei + "\n" + Linker.IDLei + "-" + Linker.ActionLei);
+                    writer.XMLtoJsonWriter(TextExtractor.TitleLei + "\n" + TextExtractor.IDLei + "-" + TextExtractor.ActionLei);
 
                 }
             }
