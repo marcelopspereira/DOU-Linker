@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Linq;
+using Dou.Linker.Net.Cli.Models;
 
 namespace Dou.Linker.Net.Cli
 {
@@ -13,8 +14,10 @@ namespace Dou.Linker.Net.Cli
 
         public static string BodyLei { get; set; }
 
-        public static List<string> IDLei { get; set; } = new List<string>();
+       // public static List<string> lei.Child { get; set; } = new List<string>();
         public static List<string> ActionLei { get; set; } = new List<string>();
+
+        public static Lei lei = new Lei();
 
 
 
@@ -29,8 +32,9 @@ namespace Dou.Linker.Net.Cli
 
             //Tratamento do titulo
 
-            TitleLei = match.Value;
-            
+            lei.Name = match.Value;
+           
+
 
         }
 
@@ -59,13 +63,14 @@ namespace Dou.Linker.Net.Cli
                     leiAltera = "Lei " + leiMatch;
                 }
 
+               
 
-                IDLei.Add(leiAltera);
+                lei.Child.Add(leiAltera);
          
             }
+            
 
-         
-            IDLei = IDLei.Distinct().ToList();
+            lei.Child.Distinct();
             
         }
 
@@ -97,18 +102,19 @@ namespace Dou.Linker.Net.Cli
                     leiAltera = "Lei " + leiMatch ;
                 }
 
-                IDLei.Add(leiAltera);
+              
+                lei.Child.Add(leiAltera);
 
 
 
-                IDLei.Sort();
+                lei.Child.Sort();
                 Int32 index = 0;
-                while (index < IDLei.Count - 1)
+                while (index < lei.Child.Count - 1)
                 {
-                    if (IDLei[index] == IDLei[index + 1])
+                    if (lei.Child[index] == lei.Child[index + 1])
                     {
-                        IDLei.RemoveAt(index + 1);
-                        IDLei.RemoveAt(index);
+                        lei.Child.RemoveAt(index + 1);
+                        lei.Child.RemoveAt(index);
                     }
                        
                     else
@@ -126,10 +132,16 @@ namespace Dou.Linker.Net.Cli
                     leiAltera = leiAltera + ";" + "Altera";
                 }
 
-                IDLei.Add(leiAltera);
+              
+                lei.Child.Add(leiAltera);
 
-                IDLei = IDLei.Distinct().ToList();
-                IDLei.Sort();
+                lei.Child = lei.Child.Distinct().ToList();
+                lei.Child.Sort();
+
+
+                var leis = new LeiCollection();
+
+                leis.Leis.Add(lei);
 
 
             }

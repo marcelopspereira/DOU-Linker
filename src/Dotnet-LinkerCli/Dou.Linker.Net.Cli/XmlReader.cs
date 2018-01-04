@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using Dou.Linker.Net.Cli.Models;
 
 namespace Dou.Linker.Net.Cli
 {
@@ -45,8 +46,11 @@ namespace Dou.Linker.Net.Cli
 
                     //Escrevendo as variaveis no documento
 
+                    var lei = new Lei();
+
+
                     var writer = new JsonGraphWriter();
-                    writer.XMLtoJsonWriter(TextExtractor.TitleLei + "\n" + TextExtractor.IDLei + "-" + TextExtractor.ActionLei);
+                    writer.XMLtoJsonWriter(lei.Name + "\n" + lei.Child + "-" + TextExtractor.ActionLei);
 
                 }
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Dou.Linker.Net.Cli.Models;
 
 namespace Dou.Linker.Net.Cli
 {
@@ -20,8 +21,8 @@ namespace Dou.Linker.Net.Cli
          //   {
              //   file = @"C:\Projects\DOU-Linker\src\XmlSamples\Sample" + i + ".xml";
                 reader.ReadXmlFile(file);
-                
-          //  }
+
+            //  }
 
             //Analise da variavel line para captura dos termos (lei, portaria, projeto de lei e etc...)
 
@@ -32,18 +33,20 @@ namespace Dou.Linker.Net.Cli
             //geracao do arquivo de log no formato JSON e grafo (1 Artigo XML = 1 Documento JSON do Grafo)
 
 
+           
 
             Console.WriteLine("Linker executado com sucesso...");
-            Console.WriteLine(TextExtractor.TitleLei);
+            Console.WriteLine(TextExtractor.lei.Name);
 
             Console.WriteLine("\n");
 
 
             //Impressao das Leis sem referencias
 
+           
 
-            for (int i = 0; i<TextExtractor.IDLei.Count;i++)
-            Console.WriteLine(TextExtractor.IDLei[i]);
+            for (int i = 0; i<TextExtractor.lei.Child.Count;i++)
+            Console.WriteLine(TextExtractor.lei.Child[i]);
             Console.ReadLine();
         }
     }
