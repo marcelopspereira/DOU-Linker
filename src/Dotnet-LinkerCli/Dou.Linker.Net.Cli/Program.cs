@@ -7,7 +7,7 @@ namespace Dou.Linker.Net.Cli
   
     class Program
     {
-        private static int i = 3;
+        private static int i = 11;
 
        
         private static string file = @"C:\Projects\DOU-Linker\src\XmlSamples\Sample"+ i + ".xml";
@@ -41,12 +41,22 @@ namespace Dou.Linker.Net.Cli
             Console.WriteLine("\n");
 
 
-            //Impressao das Leis sem referencias
+            //Impressao das Leis filhas
 
-           
-
-            for (int i = 0; i<TextExtractor.lei.Child.Count;i++)
+            for (var i = 0; i<TextExtractor.lei.Child.Count;i++)
             Console.WriteLine(TextExtractor.lei.Child[i]);
+
+
+            Console.WriteLine("\n");
+
+            //Mostrando a rastreabilidade entre itens
+
+            for (var i = 0; i < TextExtractor.lei.LinkItemChild.Count; i++)
+            {
+                Console.WriteLine(TextExtractor.lei.LinkItemChild[i]);
+
+            }
+
             Console.ReadLine();
         }
     }
