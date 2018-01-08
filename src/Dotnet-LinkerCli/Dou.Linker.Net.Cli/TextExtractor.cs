@@ -18,7 +18,7 @@ namespace Dou.Linker.Net.Cli
         public static List<string> ActionLei { get; set; } = new List<string>();
 
         public string leiAltera = "";
-        public string linkAltera = "indefinido";
+        public string linkAltera = "Citado";
 
         public Lei lei = new Lei();
 
@@ -43,7 +43,7 @@ namespace Dou.Linker.Net.Cli
 
         public void FindBodyLei(string ArticleBody)
         {
-            var pattern = @"(Lei nº|Lei no|Leis nº|Leis nos) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)"; //REMOVER (.*). CASO NÃO FUNCIONE NO CENÁRIO DE BATCH
+            var pattern = @"(Lei nº|Lei(s)? no(s)?) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)";
             Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             MatchCollection matches = rgx.Matches(ArticleBody);
@@ -73,22 +73,22 @@ namespace Dou.Linker.Net.Cli
 
             //Remover itens duplicados e adicionar referencia indefinida no link
 
-            lei.Child.Sort();
+          //  lei.Child.Sort();
 
-            Int32 index = 0;
-            while (index < lei.Child.Count - 1)
-            {
-                if (lei.Child[index] == lei.Child[index + 1])
-                {
-                    lei.Child.RemoveAt(index + 1);
-                    lei.Child.RemoveAt(index);
-                    lei.Child.Add(leiAltera);
-                    lei.LinkType.Add(linkAltera);
-                }
+            //Int32 index = 0;
+            //while (index < lei.Child.Count - 1)
+            //{
+            //    if (lei.Child[index] == lei.Child[index + 1])
+            //    {
+            //        lei.Child.RemoveAt(index + 1);
+            //        lei.Child.RemoveAt(index);
+            //        lei.Child.Add(leiAltera);
+            //        lei.LinkType.Add(linkAltera);
+            //    }
 
-                else
-                    index++;
-            }
+            //    else
+            //        index++;
+            //}
             
         }
 
@@ -172,6 +172,28 @@ namespace Dou.Linker.Net.Cli
             }
 
 
+
+            lei.LinkItemChild.Sort();
+
+            int index = 0;
+            while (index < lei.LinkItemChild.Count - 1)
+            {
+                if (lei.LinkItemChild[index] == lei.LinkItemChild[index + 1])
+                {
+                    var LeiAltera = lei.LinkItemChild[index];
+                    lei.LinkItemChild.RemoveAt(index);
+                    
+
+                  
+
+                }
+
+                else
+                    index++;
+           
+            }
+
+            lei.LinkItemChild.Sort();
         }
 
 

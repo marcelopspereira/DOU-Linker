@@ -36,13 +36,16 @@ namespace Dou.Linker.Net.Cli
                    
 
                     LinkerProcessor.FindTitleLei(XmlArticleLayout.ArticleTitle);
-                   // LinkerProcessor.FindBodyLei(XmlArticleLayout.ArticleBody);
+                    LinkerProcessor.FindBodyLei(XmlArticleLayout.ArticleBody);
                     LinkerProcessor.FindBodyLei(XmlArticleLayout.ArticleCaput);
 
-                   // LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleBody);
-                    
-                    //Busca de verbos de acao em leis e portarias (revoga, altera e etc..)
+                    // LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleBody);
+
+                    //Busca de verbos de acao em leis e portarias (revoga, altera e etc..)                  
                     LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleCaput);
+
+
+
                     LinkerProcessor.PrintResults();
 
 
