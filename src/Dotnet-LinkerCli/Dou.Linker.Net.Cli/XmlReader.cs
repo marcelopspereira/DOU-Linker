@@ -43,15 +43,8 @@ namespace Dou.Linker.Net.Cli
                     
                     //Busca de verbos de acao em leis e portarias (revoga, altera e etc..)
                     LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleCaput);
+                    LinkerProcessor.PrintResults();
 
-
-                    //Escrevendo as variaveis no documento
-
-                    var lei = new Lei();
-
-
-                    //var writer = new JsonGraphWriter();
-                    //writer.XMLtoJsonWriter(lei.Name + "\n" + lei.Child + "-" + TextExtractor.lei.);
 
                 }
             }

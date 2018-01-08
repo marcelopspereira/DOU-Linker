@@ -17,10 +17,10 @@ namespace Dou.Linker.Net.Cli
        // public static List<string> lei.Child { get; set; } = new List<string>();
         public static List<string> ActionLei { get; set; } = new List<string>();
 
-        public static Lei lei = new Lei();
-
         public string leiAltera = "";
         public string linkAltera = "indefinido";
+
+        public Lei lei = new Lei();
 
 
         public void FindTitleLei(string ArticleTitle)
@@ -56,8 +56,7 @@ namespace Dou.Linker.Net.Cli
             foreach (Match match in matches)
             {
 
-                var cleanMatchValue = match.Value;
-                    leiAltera = cleanMatchValue;
+                var cleanMatchValue = match.Value;               
 
                 var regex = new Regex(@"([0-9]+(\.[0-9]+)?(\-[0-9]+)?)");
                 var leiMatch = regex.Match(cleanMatchValue);
@@ -90,10 +89,6 @@ namespace Dou.Linker.Net.Cli
                 else
                     index++;
             }
-
-         
-            
-           
             
         }
 
@@ -102,7 +97,7 @@ namespace Dou.Linker.Net.Cli
 
             for (var i = 0; i < lei.Child.Count; i++)
             {
-                lei.LinkItemChild.Add(lei.Child[i] + ";" + linkAltera);
+                lei.LinkItemChild.Add("Lei " + lei.Child[i] + ";" + linkAltera);
             }
 
             lei.LinkItemParent = lei.Name;
@@ -158,14 +153,13 @@ namespace Dou.Linker.Net.Cli
                     {
                         if (match.Value.Contains(lei.Child[i]) == true)
                         {
-                            //if(lei.LinkItemChild[i].Contains("Altera") != true)
-                            //    {
+                           
 
                                 var linkAltera = "Revoga";
 
                                 lei.LinkItemChild[i] = "Lei " + lei.Child[i] + ";" + linkAltera;
 
-                                //}
+                               
                       
 
                         }
@@ -177,58 +171,33 @@ namespace Dou.Linker.Net.Cli
 
             }
 
-            //    lei.Child.Add(leiAltera);
-
-            //    //Adiciona Altera no final do retorno - AQUI DEVERA TER ALTERA OU REVOGA, DEVERA SER NO MESMO METODO PARA EVITAR EXECUCAO DEMASIADA E CLASSIFICACAO, UMA VEZ QUE EU JA CAPTUREI OS ITENS DO BODY, TALVEZ DEVEREI EXECUTAR O CLEAN NO CAPUT E BODY.
-            //    var regexAltera = new Regex("(Altera|Revoga)(.*).");
-            //    var alteraMatch = regexAltera.Match(cleanMatchValue);
-
-            //    if (alteraMatch.Success)
-
-            //    {
-
-            //        linkAltera = alteraMatch.Value;
-            //        lei.LinkType.Add(linkAltera);
-            //    }
-
-
-            //    else
-            //    {
-            //        linkAltera = "indefinido";
-            //        lei.LinkType.Add(linkAltera);
-            //    }
-
-
-
-            //    lei.LinkItemChild.Sort();
-
-
-            //    //Int32 index = 0;
-            //    //while (index < lei.LinkItemChild.Count - 1)
-            //    //{
-            //    //    if (lei.LinkItemChild[index] == lei.LinkItemChild[index + 1])
-            //    //    {
-            //    //        lei.LinkItemChild.RemoveAt(index + 1);
-            //    //        lei.LinkItemChild.RemoveAt(index);
-            //    //        lei.LinkType.RemoveAt(index+1);
-            //    //        lei.LinkType.RemoveAt(index);
-            //    //    }
-
-            //    //    else
-            //    //        index++;
-            //    //}
-
-            //    //lei.LinkItemChild.Add(leiAltera);
-            //    //lei.LinkType.Add(linkAltera);
-
-            //}
-
 
         }
 
 
+        public void PrintResults()
+        {
+            Console.WriteLine(lei.Name);
+
+            Console.WriteLine("\n");
 
 
+            //Impressao das Leis filhas
+
+            for (var i = 0; i < lei.Child.Count; i++)
+                Console.WriteLine(lei.Child[i]);
+
+
+            Console.WriteLine("\n");
+
+            //Mostrando a rastreabilidade entre itens
+
+            for (var i = 0; i < lei.LinkItemChild.Count; i++)
+            {
+                Console.WriteLine(lei.LinkItemChild[i]);
+            }
+
+        }
 
     }
 }
