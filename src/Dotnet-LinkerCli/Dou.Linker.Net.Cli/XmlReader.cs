@@ -30,21 +30,23 @@ namespace Dou.Linker.Net.Cli
                         XmlArticle.FindCaputArticle(article);
                     }
 
-                    var LinkerProcessor = new TextExtractor();
+                    var LinkerProcessor = new LeiTextExtractor();
 
                     //Busca de Leis, Portarias e etc...
                    
 
                     LinkerProcessor.FindTitleLei(XmlArticleLayout.ArticleTitle);
+                   
                     LinkerProcessor.FindBodyLei(XmlArticleLayout.ArticleBody);
                     LinkerProcessor.FindBodyLei(XmlArticleLayout.ArticleCaput);
 
                     // LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleBody);
 
-                    //Busca de verbos de acao em leis e portarias (revoga, altera e etc..)                  
-                    LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleCaput);
-
-
+                    //Busca de verbos de acao em leis e portarias (revoga, altera e etc..)    
+                    
+                    LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleBody + XmlArticleLayout.ArticleCaput);
+                  //  LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleCaput);
+                    
 
                     LinkerProcessor.PrintResults();
 

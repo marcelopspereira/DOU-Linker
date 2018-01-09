@@ -7,18 +7,18 @@ using Dou.Linker.Net.Cli.Models;
 
 namespace Dou.Linker.Net.Cli
 {
-    public class TextExtractor
+    public class LeiTextExtractor
     {
 
         public static string TitleLei { get; set; }
 
         public static string BodyLei { get; set; }
 
-       // public static List<string> lei.Child { get; set; } = new List<string>();
+        // public static List<string> lei.Child { get; set; } = new List<string>();
         public static List<string> ActionLei { get; set; } = new List<string>();
 
-        public string leiAltera = "";
-        public string linkAltera = "Citado";
+        public string leiValue = "";
+        public string linkValue = "Citado";
 
         public Lei lei = new Lei();
 
@@ -35,13 +35,13 @@ namespace Dou.Linker.Net.Cli
             //Tratamento do titulo
 
             lei.Name = match.Value;
-           
+
 
 
         }
 
 
-        public void FindBodyLei(string ArticleBody)
+            public void FindBodyLei(string ArticleBody)
         {
             var pattern = @"(Lei nº|Lei(s)? no(s)?) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)";
             Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -50,45 +50,23 @@ namespace Dou.Linker.Net.Cli
 
 
             //Preenche a lista de Leis capturadas no body dentro da variavel IDLeiList
-            
-           
+                  
 
             foreach (Match match in matches)
             {
-
-                var cleanMatchValue = match.Value;               
+                var cleanMatchValue = match.Value;                        
 
                 var regex = new Regex(@"([0-9]+(\.[0-9]+)?(\-[0-9]+)?)");
                 var leiMatch = regex.Match(cleanMatchValue);
 
                 if (leiMatch.Success)
                 {
-                    leiAltera = leiMatch.Value;
+                    leiValue = leiMatch.Value;
                 }
              
-
-                lei.Child.Add(leiAltera);
+                lei.Child.Add(leiValue);
 
             }
-
-            //Remover itens duplicados e adicionar referencia indefinida no link
-
-          //  lei.Child.Sort();
-
-            //Int32 index = 0;
-            //while (index < lei.Child.Count - 1)
-            //{
-            //    if (lei.Child[index] == lei.Child[index + 1])
-            //    {
-            //        lei.Child.RemoveAt(index + 1);
-            //        lei.Child.RemoveAt(index);
-            //        lei.Child.Add(leiAltera);
-            //        lei.LinkType.Add(linkAltera);
-            //    }
-
-            //    else
-            //        index++;
-            //}
             
         }
 
@@ -97,7 +75,7 @@ namespace Dou.Linker.Net.Cli
 
             for (var i = 0; i < lei.Child.Count; i++)
             {
-                lei.LinkItemChild.Add("Lei " + lei.Child[i] + ";" + linkAltera);
+                lei.LinkItemChild.Add("Lei " + lei.Child[i] + ";" + linkValue);
             }
 
             lei.LinkItemParent = lei.Name;
@@ -125,17 +103,13 @@ namespace Dou.Linker.Net.Cli
                             var linkAltera = "Altera";
 
                             lei.LinkItemChild[i] = "Lei " + lei.Child[i] + ";" + linkAltera;                          
-
-                        }
-                        
+                        }                   
 
                    }
                   
                 }
 
             }
-
-
 
             var patternRev = @"Revoga(.*)(Altera|Reinvidica|.)";
             Regex rgxRev = new Regex(patternRev, RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -152,24 +126,66 @@ namespace Dou.Linker.Net.Cli
                     for (var i = 0; i < lei.LinkItemChild.Count; i++)
                     {
                         if (match.Value.Contains(lei.Child[i]) == true)
-                        {
-                           
+                        {                        
 
                                 var linkAltera = "Revoga";
 
                                 lei.LinkItemChild[i] = "Lei " + lei.Child[i] + ";" + linkAltera;
-
                                
-                      
-
                         }
-
 
                     }
 
                 }
 
             }
+
+
+            var patternOthers = @"(Decreto no|Decreto-Lei no|Ato|Portaria) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)";
+            Regex rgxOthers = new Regex(patternOthers, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+            MatchCollection matchesOthers = rgxOthers.Matches(text);
+
+            //////Preenche a lista de Leis capturadas no body dentro da variavel IDLeiList
+
+            foreach (Match match in matchesOthers)
+            {
+
+                if (match.Success)
+                {
+                    for (var i = 0; i < lei.LinkItemChild.Count; i++)
+                    {
+                        if (match.Value.Contains(lei.Child[i]) == true)
+                        {
+                            var fullString = match.Value;
+
+                            string itemLinkName = "";
+
+                            if (fullString.Contains("Decreto-Lei no")==true)
+                            {
+                               itemLinkName = fullString.Substring(0, 12);
+                            }
+                            else
+                            if (fullString.Contains("Decreto") == true)
+                            {
+                                itemLinkName = fullString.Substring(0, 7);
+                            }
+
+
+                            var linkAltera = "Citado";
+
+                            lei.LinkItemChild[i] = itemLinkName + lei.Child[i] + ";" + linkAltera;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+
+
 
 
 
@@ -181,11 +197,7 @@ namespace Dou.Linker.Net.Cli
                 if (lei.LinkItemChild[index] == lei.LinkItemChild[index + 1])
                 {
                     var LeiAltera = lei.LinkItemChild[index];
-                    lei.LinkItemChild.RemoveAt(index);
-                    
-
-                  
-
+                    lei.LinkItemChild.RemoveAt(index);                  
                 }
 
                 else
@@ -201,13 +213,13 @@ namespace Dou.Linker.Net.Cli
         {
             Console.WriteLine(lei.Name);
 
-            Console.WriteLine("\n");
+            //Console.WriteLine("\n");
 
 
-            //Impressao das Leis filhas
+            ////Impressao das Leis filhas
 
-            for (var i = 0; i < lei.Child.Count; i++)
-                Console.WriteLine(lei.Child[i]);
+            //for (var i = 0; i < lei.Child.Count; i++)
+            //    Console.WriteLine(lei.Child[i]);
 
 
             Console.WriteLine("\n");

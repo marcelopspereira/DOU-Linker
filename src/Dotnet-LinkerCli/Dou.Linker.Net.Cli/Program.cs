@@ -7,7 +7,7 @@ namespace Dou.Linker.Net.Cli
   
     class Program
     {
-        private static int i = 3;
+        private static int i = 10;
 
        
         private static string file = @"C:\Projects\DOU-Linker\src\XmlSamples\Sample"+ i + ".xml";
