@@ -14,7 +14,7 @@ namespace Dou.Linker.Net.Cli
 
         public void FindTitleArticle(string article)
         {
-            var pattern = @"<title>(.*)</title>";
+            var pattern = @"<Titulo>(.*)</Titulo>";
             Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             MatchCollection matches = rgx.Matches(article);
@@ -28,8 +28,8 @@ namespace Dou.Linker.Net.Cli
                 //Tratamento do titulo
 
                 ArticleTitle = match.Value;
-                ArticleTitle = ArticleTitle.Replace("<title>", "");
-                ArticleTitle = ArticleTitle.Replace("</title>", "");
+                ArticleTitle = ArticleTitle.Replace("<Titulo>", "");
+                ArticleTitle = ArticleTitle.Replace("</Titulo>", "");
 
             }
 
@@ -38,7 +38,7 @@ namespace Dou.Linker.Net.Cli
 
         public void FindBodyArticle(string article)
         {
-            var pattern = @"<body>(.*)</body>";
+            var pattern = @"<corpo>(.*)</corpo>";
             Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
             MatchCollection matches = rgx.Matches(article);
@@ -52,8 +52,8 @@ namespace Dou.Linker.Net.Cli
                 //Tratamento do titulo
 
                 ArticleBody = match.Value;
-                ArticleBody = ArticleBody.Replace("<body>", "");
-                ArticleBody = ArticleBody.Replace("</body>", "");
+                ArticleBody = ArticleBody.Replace("<corpo>", "");
+                ArticleBody = ArticleBody.Replace("</corpo>", "");
                // ArticleBody = ArticleBody.Replace("\n", "");
 
             }

@@ -10,10 +10,6 @@ namespace Dou.Linker.Net.Cli
     public class LeiTextExtractor
     {
 
-        public static string TitleLei { get; set; }
-
-        public static string BodyLei { get; set; }
-
         // public static List<string> lei.Child { get; set; } = new List<string>();
         public static List<string> ActionLei { get; set; } = new List<string>();
 
@@ -28,13 +24,17 @@ namespace Dou.Linker.Net.Cli
             var pattern = @"(Lei nº|Lei no) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)";
             Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-            MatchCollection matches = rgx.Matches(ArticleTitle);
+            var matchResult = rgx.Match(ArticleTitle);
 
-            Match match = matches[0];
+            if (matchResult.Success == true)
+            {
+                var result = matchResult.Value;
 
-            //Tratamento do titulo
+                //Tratamento do titulo
 
-            lei.Name = match.Value;
+                lei.Name = result;
+
+            }
 
 
 
@@ -62,9 +62,11 @@ namespace Dou.Linker.Net.Cli
                 if (leiMatch.Success)
                 {
                     leiValue = leiMatch.Value;
+
+                    lei.Child.Add(leiValue);
                 }
              
-                lei.Child.Add(leiValue);
+               
 
             }
             

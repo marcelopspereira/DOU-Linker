@@ -27,28 +27,42 @@ namespace Dou.Linker.Net.Cli
                     {                      
                         XmlArticle.FindTitleArticle(article);                   
                         XmlArticle.FindBodyArticle(article);
-                        XmlArticle.FindCaputArticle(article);
+                     //   XmlArticle.FindCaputArticle(article); test
                     }
 
-                    var LinkerProcessor = new LeiTextExtractor();
+                    var LinkerLeiProcessor = new LeiTextExtractor();
+                    var LinkerPortariaProcessor = new PortariaTextExtractor();
 
-                    //Busca de Leis, Portarias e etc...
-                   
 
-                    LinkerProcessor.FindTitleLei(XmlArticleLayout.ArticleTitle);
-                   
-                    LinkerProcessor.FindBodyLei(XmlArticleLayout.ArticleBody);
-                    LinkerProcessor.FindBodyLei(XmlArticleLayout.ArticleCaput);
 
-                    // LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleBody);
+                    LinkerLeiProcessor.FindTitleLei(XmlArticleLayout.ArticleTitle);
+                    LinkerPortariaProcessor.FindTitlePortaria(XmlArticleLayout.ArticleTitle);
+                    LinkerLeiProcessor.FindBodyLei(XmlArticleLayout.ArticleBody);
+                    //   LinkerLeiProcessor.FindBodyLei(XmlArticleLayout.ArticleCaput);
+                    //  LinkerLeiProcessor.FindLeiTraceability(XmlArticleLayout.ArticleBody + XmlArticleLayout.ArticleCaput);
 
-                    //Busca de verbos de acao em leis e portarias (revoga, altera e etc..)    
-                    
-                    LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleBody + XmlArticleLayout.ArticleCaput);
-                  //  LinkerProcessor.FindLeiTraceability(XmlArticleLayout.ArticleCaput);
-                    
+                    LinkerLeiProcessor.FindLeiTraceability(XmlArticleLayout.ArticleBody);
 
-                    LinkerProcessor.PrintResults();
+
+
+
+
+                    // LinkerPortariaProcessor.FindBodyPortaria(XmlArticleLayout.ArticleBody);
+                    //    LinkerPortariaProcessor.FindBodyPortaria(XmlArticleLayout.ArticleCaput);
+                    //   LinkerPortariaProcessor.FindPortariaTraceability(XmlArticleLayout.ArticleBody + XmlArticleLayout.ArticleCaput);
+
+                    LinkerPortariaProcessor.FindPortariaTraceability(XmlArticleLayout.ArticleBody); //Test
+
+
+
+
+
+
+
+
+
+                    LinkerLeiProcessor.PrintResults();
+                    LinkerPortariaProcessor.PrintResults();
 
 
                 }
