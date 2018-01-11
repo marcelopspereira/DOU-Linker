@@ -43,7 +43,7 @@ namespace Dou.Linker.Net.Cli
 
             public void FindBodyLei(string ArticleBody)
         {
-            var pattern = @"(Lei nº|Lei(s)? no(s)?) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)";
+            var pattern = @"(Lei nº(-)?|Lei(s)? no(s)?(-)?) ([0-9]+(\.[0-9]+)?(\-[0-9]+)?)";
             Regex rgx = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             MatchCollection matches = rgx.Matches(ArticleBody);
