@@ -13,4 +13,8 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dou.Linker.Net.Cli\Dou.Linker.Net.Cli.csproj" />
+  </ItemGroup>
+
 </Project>
